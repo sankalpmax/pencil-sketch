@@ -1,0 +1,15 @@
+import cv2
+import matplotlib.pyplot as plt
+img = cv2.imread('actor.jfif', 0)
+plt.imshow(img, cmap='gray')
+img.max()
+img.min()
+inv = 255-img
+inv = 255-img
+plt.imshow(inv, cmap='gray')
+blur = cv2.GaussianBlur(inv, ksize=(21,21), sigmaX=0, sigmaY=0)
+plt.imshow(blur, cmap='gray')
+dodge = lambda image, mask: cv2.divide(image, 255-mask, scale=256)
+blended = dodge(img, blur)
+plt.imshow(blended, cmap='gray')
+cv2.imwrite('imgsketch.jpg', blended)
